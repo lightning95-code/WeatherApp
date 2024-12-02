@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="WeatherApp.Controls.WindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WeatherApp.Controls"
+             Width="auto" Height="auto">
+
+    <Border Name="WindowBorder"
+            CornerRadius="15" Background="AliceBlue"
+            MouseLeftButtonDown="WindowBorder_MouseLeftButtonDown"
+            MouseDown="WindowBorder_MouseDown"
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid>
+            
+        </Grid>
+    </Border>
+</UserControl>
