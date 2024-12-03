@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WeatherApp.ViewModels;
 
 namespace WeatherApp.Controls
 {
@@ -26,6 +27,7 @@ namespace WeatherApp.Controls
         public TopContentControl()
         {
             InitializeComponent();
+            DataContext = new WeatherSearchViewModel();
         }
 
         // Обробник отримання фокусу на TextBox
@@ -72,5 +74,16 @@ namespace WeatherApp.Controls
             IsLanguagePopupOpen = !IsLanguagePopupOpen;
             LanguagePopup.IsOpen = IsLanguagePopupOpen;
         }
+
+        private void AutoCompleteListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (autoCompleteListBox.SelectedItem != null)
+            {
+                searchTextBox.Text = autoCompleteListBox.SelectedItem.ToString();
+                autoCompletePopup.IsOpen = false; 
+            }
+        }
+
+
     }
 }
