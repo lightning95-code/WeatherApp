@@ -79,10 +79,19 @@ namespace WeatherApp.Controls
         {
             if (autoCompleteListBox.SelectedItem != null)
             {
-                searchTextBox.Text = autoCompleteListBox.SelectedItem.ToString();
-                autoCompletePopup.IsOpen = false; 
+                string selectedCity = autoCompleteListBox.SelectedItem.ToString();
+                searchTextBox.Text = selectedCity;
+
+                
+                if (Application.Current.MainWindow.DataContext is MainViewModel mainViewModel)
+                {
+                    mainViewModel.CityName = selectedCity; 
+                }
+
+                autoCompletePopup.IsOpen = false;
             }
         }
+
 
 
     }

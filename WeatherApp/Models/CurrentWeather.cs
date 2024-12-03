@@ -12,10 +12,62 @@
         public int Cod { get; set; }
 
 
-        public double TempCelsius => Main.Temp - 273.15;
-        public double FeelsLikeCelsius => Main.FeelsLike - 273.15;
-        public double TempMinCelsius => Main.TempMin - 273.15;
-        public double TempMaxCelsius => Main.TempMax - 273.15;
+        public double TempCelsius
+        {
+            get
+            {
+                double temp = Main.Temp;
+                if (temp > 50 || temp < -50)
+                {
+                    
+                    return temp - 273.15;
+                }
+                return temp - 0; 
+            }
+        }
+
+        public double FeelsLikeCelsius
+        {
+            get
+            {
+                double feelsLike = Main.FeelsLike;
+                if (feelsLike > 50 || feelsLike < -50)
+                {
+                    
+                    return feelsLike - 273.15; 
+                }
+                return feelsLike - 0; 
+            }
+        }
+
+        public double TempMinCelsius
+        {
+            get
+            {
+                double tempMin = Main.TempMin ;
+                if (tempMin > 50 || tempMin < -50)
+                {
+                    
+                    return tempMin - 273.15; 
+                }
+                return tempMin - 0; 
+            }
+        }
+
+        public double TempMaxCelsius
+        {
+            get
+            {
+                double tempMax = Main.TempMax;
+                if (tempMax > 50 || tempMax < -50)
+                {
+                  
+                    return tempMax - 273.15; 
+                }
+                return tempMax - 0; 
+            }
+        }
+
     }
 
     public class Coord

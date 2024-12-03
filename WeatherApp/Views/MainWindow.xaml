@@ -41,21 +41,21 @@
                 <controls:TopContentControl x:Name="TopContentControl" Grid.Row="0"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1" IsHitTestVisible="False">
-                    <TextBlock  Text="London" x:Name="CityTextBlock" FontSize="50" FontWeight="Bold" Margin="55,40,0,0"
+                    <TextBlock Text="{Binding CityName,  UpdateSourceTrigger=PropertyChanged}" x:Name="CityTextBlock" FontSize="50" FontWeight="Bold" Margin="55,40,0,0"
                      HorizontalAlignment="Left" Foreground="#121518">
                     </TextBlock>
-                    <TextBlock Grid.Row="1" Text="(21.11.2021)" x:Name="DateTextBlock" FontSize="30" FontWeight="SemiBold"  Margin="15,58,0,0"
+                    <TextBlock Grid.Row="1" Text="{Binding Date}" x:Name="DateTextBlock" FontSize="30" FontWeight="SemiBold"  Margin="15,60,0,0"
     HorizontalAlignment="Left" Foreground="#121518">
                     </TextBlock>
-                    <TextBlock Grid.Row="1" Text="—"  FontSize="30" FontWeight="SemiBold"  Margin="15,58,0,0"
+                    <TextBlock Grid.Row="1" Text="—"  FontSize="30" FontWeight="SemiBold"  Margin="15,60,0,0"
                             HorizontalAlignment="Left" Foreground="#121518">
                     </TextBlock>
-                    <TextBlock Grid.Row="1" Text="Light rain" x:Name="DescriptionTextBlock" FontSize="30" FontWeight="SemiBold"  Margin="15,58,0,0"
+                    <TextBlock Grid.Row="1" Text="{Binding WeatherDescription}" x:Name="DescriptionTextBlock" FontSize="30" FontWeight="SemiBold"  Margin="15,60,0,0"
                     HorizontalAlignment="Left" Foreground="#121518">
                     </TextBlock>
-                    <Image Name="WeatherIcon" Width="50" Height="50" Margin="15,58,0,0"/>
+                    <Image Name="WeatherIcon" Width="50" Height="50" Margin="10,58,0,0" Source="{Binding WeatherIcon}" />
                 </StackPanel>
-                
+
                 <!--Separator-->
                 <Separator Height="8" Grid.Row="2" Background="Black" Margin="0,14,0,10" Width="600" HorizontalAlignment="Left" IsHitTestVisible="False"/>
 
@@ -78,29 +78,29 @@
                                         <Icon:PackIconMaterial x:Name="TempIcon" Kind="HydraulicOilTemperature" Width="25" Height="25" Margin="60 8 5 5" Foreground="Black"/>
                                         <TextBlock x:Name="tempBlock" Text="TEMPERATURE:" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0"/>
                                     </StackPanel>
-                                    
+
                                     <StackPanel DockPanel.Dock="Top">
-                                        <Separator Height="8" Background="Black" Margin="0,12,0,10" Width="600" HorizontalAlignment="Left"/> 
+                                        <Separator Height="8" Background="Black" Margin="0,12,0,10" Width="600" HorizontalAlignment="Left"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 5 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 5 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="CurrentTempIcon" Kind="Thermometer" Width="17" Height="17" Margin="5 1 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="CurrenttempBlock" Text="Current temperature: 34 °C" FontSize="16"/>
+                                        <TextBlock x:Name="CurrenttempBlock" Text="{Binding Temperature}" FontSize="16"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 10 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 10 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="FeelsTempIcon" Kind="HumanGreeting" Width="17" Height="17" Margin="5 1 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="FeelstempBlock" Text="Feels like: 34 °C" FontSize="16"/>
+                                        <TextBlock x:Name="FeelstempBlock" Text="{Binding FeelsLike}" FontSize="16"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 10 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 10 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="MinTempIcon" Kind="arrowDown" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="MintempBlock" Text="Minimum temperature: 34 °C" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="MintempBlock" Text="{Binding MinTemperature}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 10 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 10 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="MaxTempIcon" Kind="arrowUp" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="MaxtempBlock" Text="Maximum temperature: 34 °C" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="MaxtempBlock" Text="{Binding MaxTemperature}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
                                 </DockPanel>
                             </Grid>
@@ -118,40 +118,31 @@
                                         <Separator Height="8" Background="Black" Margin="0,12,0,10" Width="600" HorizontalAlignment="Left"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 5 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 5 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="WindIcon" Kind="WeatherWindy" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="WindBlock" Text="Wind speed: 4.3 m/s" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="WindBlock" Text="{Binding WindSpeed}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 5 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 5 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="HumidityIcon" Kind="AirHumidifier" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="HumidityBlock" Text="Humidity: 70%" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="HumidityBlock" Text="{Binding Humidity}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 5 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 5 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="PressureIcon" Kind="ClockCheck" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="PressureBlock" Text="Air pressure: 100 hPa" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="PressureBlock" Text="{Binding Pressure}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="25 5 0 5" DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" Margin="15 5 0 5" DockPanel.Dock="Top">
                                         <Icon:PackIconMaterial x:Name="VisibilityIcon" Kind="Eye" Width="15" Height="15" Margin="5 3 5 5" Foreground="Black"/>
-                                        <TextBlock x:Name="VisibilityBlock" Text="Visibility: 100 meters" FontSize="16" Margin="1 0 0 0"/>
+                                        <TextBlock x:Name="VisibilityBlock" Text="{Binding Visibility}" FontSize="16" Margin="1 0 0 0"/>
                                     </StackPanel>
-
                                 </DockPanel>
                             </Grid>
                         </Border>
-
-                        <Border Grid.Column="1" Grid.RowSpan="2"  Background="#b4cefa" CornerRadius="20" Margin="10 10 10 10">
-                            <Grid>
-                                <DockPanel>
-                                    
-                                </DockPanel>
-                            </Grid>
-                        </Border>
-
                     </Grid>
                 </Border>
+
             </Grid>
         </Grid>
     </Grid>

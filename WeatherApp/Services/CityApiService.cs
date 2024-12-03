@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
+﻿
 public class CityApiService
 {
     public Task<List<string>> GetCitiesAsync(string query)

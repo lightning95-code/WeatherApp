@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using WeatherApp.ViewModels;
 
 namespace WeatherApp
 {
@@ -11,6 +12,7 @@ namespace WeatherApp
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
     }
 }
