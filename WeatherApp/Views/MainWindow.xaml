@@ -23,7 +23,10 @@
                 <ColumnDefinition Width = "250"/>
                 <ColumnDefinition Width = "*"/>
             </Grid.ColumnDefinitions>
-            
+
+            <Grid>
+                <controls:LeftMenuControl Grid.Column="0" />
+            </Grid>
             
 
         </Grid>

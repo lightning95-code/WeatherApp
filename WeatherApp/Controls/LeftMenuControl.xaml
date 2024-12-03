@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WeatherApp.Controls.LeftMenuControl"
+﻿<UserControl x:Class="WeatherApp.Controls.LeftMenuControl" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,91 @@
              xmlns:local="clr-namespace:WeatherApp.Controls"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="250">
+             Width="auto" Height="auto"
+             Background="Transparent">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />  
+        </Grid.RowDefinitions>
+
+    
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/Images/Weather.png" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,25,0,0" RenderTransformOrigin="-1.4,0.458" Height="44" Width="35"/>
+            <TextBlock Text="Weather App" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="5,30,5,40"/>
+        </Grid>
             
+
+        <Border Grid.Row="1" Background="#4169E1" CornerRadius="0 5 5 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"  Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
+                    <TextBlock Text="MENU" Foreground="White" FontSize="30" FontWeight="SemiBold" TextAlignment="Center"/>
+                </StackPanel>
+                <Separator Grid.Row="1" Margin="25, 25, 25, 10"  Height="9" Background="White"/>
+
+                <StackPanel Grid.Row="2" Margin="10,10,10,0">
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Refresh page"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="MainTb" Text="Home"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="WeatherCloudy" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="MarketsButTb" Text="Weather forecast"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="CityVariant" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="CoinTb" Text="City"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="MarketSearchButTb" Text="Search"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="CreditCard" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="ConvertTb" Text="Donate"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Button Style="{StaticResource menuButton}" Grid.Row="3" Margin="20,10,15,30" VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock x:Name="ExitTb" Text="Exit"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

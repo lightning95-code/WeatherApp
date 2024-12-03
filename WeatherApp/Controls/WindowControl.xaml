@@ -5,7 +5,7 @@
              Width="auto" Height="auto">
 
     <Border Name="WindowBorder"
-            CornerRadius="15" Background="AliceBlue"
+            CornerRadius="15 15 15 15" Background="AliceBlue"
             MouseLeftButtonDown="WindowBorder_MouseLeftButtonDown"
             MouseDown="WindowBorder_MouseDown"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
