@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using WeatherApp.Utilities;
+using WeatherApp.Views;
 
 namespace WeatherApp.Controls
 {
@@ -75,9 +76,37 @@ namespace WeatherApp.Controls
             window.Close(); 
         }
 
-        private void ForecastPage_Click(object sender, RoutedEventArgs e)
+        private async void ForecastPage_Click(object sender, RoutedEventArgs e)
         {
+            Window window = Window.GetWindow(this);
 
+            if (window == null)
+            {
+                MessageBox.Show("Window not found.");
+                return;
+            }
+
+            // Збереження стану вікна
+            WindowStateManager.Width = window.Width;
+            WindowStateManager.Height = window.Height;
+            WindowStateManager.Top = window.Top;
+            WindowStateManager.Left = window.Left;
+            WindowStateManager.IsMaximized = window.WindowState == WindowState.Maximized;
+
+            ForecastView ForecastView = new ForecastView
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
+            ForecastView.Show();
+
+            // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
+            await Task.Delay(100);
+
+            window.Close();
         }
     }
 }

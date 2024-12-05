@@ -146,11 +146,11 @@
 
                                     <TextBlock Text="Cloudiness:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0"/>
                                     <TextBlock Text="{Binding Cloudness, StringFormat={}{0}%}" FontSize="12" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right"/>
-                                   
 
-                                    <Button Grid.Row="8" Grid.ColumnSpan="2" Height="50" Background="#2c6c99" BorderBrush="#1d4866">
+
+                                    <Button Grid.Row="8" Grid.ColumnSpan="2" Height="50" Background="#2c6c99" BorderBrush="#1d4866" Click="Go_home_Button_Click"  >
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                            <Icon:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}" Margin="-3 3 10 0"/>
+                                            <Icon:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}" Margin="-5 3 10 0"/>
                                             <TextBlock x:Name="HomeBlock" Text="Home" Margin="0 3 0 0"/>
                                         </StackPanel>
                                     </Button>

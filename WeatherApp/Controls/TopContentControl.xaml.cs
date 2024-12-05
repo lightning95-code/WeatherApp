@@ -65,25 +65,37 @@ namespace WeatherApp.Controls
 
         private void AutoCompleteListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (autoCompleteListBox.SelectedItem != null)
+            if (autoCompleteListBox.SelectedItem is string selectedCity)
             {
-                string selectedCity = autoCompleteListBox.SelectedItem.ToString();
                 searchTextBox.Text = selectedCity;
 
-                
-                if (Application.Current.MainWindow.DataContext is MainViewModel mainViewModel)
-                {
-                    mainViewModel.CityName = selectedCity; 
-                }
+               
+                AppState.Instance.SelectedCity = selectedCity;
 
-                if (Application.Current.MainWindow.DataContext is ForecastViewModel forecastViewModel)
-                {
-                    forecastViewModel.CityName = selectedCity;
-                }
+         
+                UpdateViewModels(selectedCity);
+
                 
                 autoCompletePopup.IsOpen = false;
             }
         }
+
+        private void UpdateViewModels(string selectedCity)
+        {
+            
+            if (Application.Current.MainWindow.DataContext is MainViewModel mainViewModel)
+            {
+                mainViewModel.CityName = selectedCity;
+            }
+
+            if (Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.DataContext is ForecastViewModel forecastViewModel)
+            {
+                forecastViewModel.CityName = selectedCity;
+                
+            }
+
+        }
+
 
 
 

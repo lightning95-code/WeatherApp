@@ -11,19 +11,19 @@ public class ForecastViewModel : INotifyPropertyChanged
     private readonly ForecastService _forecastService;
     private ObservableCollection<DetailForecast> _forecastList;
     private ObservableCollection<double> _temperatureData;
-    private string _cityName = "London";
     private bool _isLoading;
+    private string _cityName;
     private string _errorMessage;
     private string _weatherIcon;
 
-    private DetailForecast _currentForecast;  // Объект для текущего прогноза
+    private DetailForecast _currentForecast;  
 
     // LiveCharts properties for graph
     private SeriesCollection _seriesCollection;
     private Axis _xAxis;
     private Axis _yAxis;
 
-    // Новые свойства для отображения влажности, давления, скорости ветра и облачности
+
     private double _humidity;
     private double _pressure;
     private double _windSpeed;
@@ -38,9 +38,10 @@ public class ForecastViewModel : INotifyPropertyChanged
         _temperatureData = new ObservableCollection<double>();
         _weatherIcon = string.Empty;
 
-        // Default call to load weather data for the default city
+        CityName = AppState.Instance.SelectedCity;
         GetWeatherForecastAsync();
     }
+
 
     public DetailForecast CurrentForecast
     {
@@ -49,7 +50,7 @@ public class ForecastViewModel : INotifyPropertyChanged
         {
             _currentForecast = value;
             OnPropertyChanged(nameof(CurrentForecast));
-            UpdateWeatherDetails();  
+            UpdateWeatherDetails();
         }
     }
 
@@ -147,7 +148,6 @@ public class ForecastViewModel : INotifyPropertyChanged
         }
     }
 
-   
     public double Humidity
     {
         get => _humidity;
@@ -197,9 +197,7 @@ public class ForecastViewModel : INotifyPropertyChanged
             WindSpeed = CurrentForecast.Wind.Speed;
             Cloudness = CurrentForecast.Clouds.All;
         }
-            
-
-    }   
+    }
 
     public async Task GetWeatherForecastAsync()
     {
@@ -237,32 +235,31 @@ public class ForecastViewModel : INotifyPropertyChanged
 
                 // LiveCharts: Prepare data for temperature graph
                 SeriesCollection = new SeriesCollection
+            {
+                new LineSeries
                 {
-                    new LineSeries
-                    {
-                        Title = "Temperature",
-                        Values = new ChartValues<double>(TemperatureData)
-                    }
-                };
+                    Title = "Temperature",
+                    Values = new ChartValues<double>(TemperatureData)
+                }
+            };
 
                 // Set up axes for the chart
                 XAxis = new Axis
                 {
                     Title = "Date",
-                    Labels = dates.ToArray() // Date labels on X axis
+                    Labels = dates.ToArray()
                 };
 
                 YAxis = new Axis
                 {
                     Title = "Temperature (°C)",
-                    LabelFormatter = value => value.ToString("N0") + " °C" // Convert temperature to Celsius
+                    LabelFormatter = value => value.ToString("N0") + " °C"
                 };
 
                 // Set the WeatherIcon based on the current forecast
                 if (CurrentForecast?.Weather?.FirstOrDefault() != null)
                 {
                     WeatherIcon = $"http://openweathermap.org/img/wn/{CurrentForecast.Weather[0].Icon}.png";
-
                 }
                 UpdateWeatherDetails();
             }
@@ -280,6 +277,7 @@ public class ForecastViewModel : INotifyPropertyChanged
             IsLoading = false;
         }
     }
+
 
     private void OnPropertyChanged(string propertyName)
     {

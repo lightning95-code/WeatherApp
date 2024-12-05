@@ -1,23 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WeatherApp.ViewModels;
+using WeatherApp.Utilities;
 
 namespace WeatherApp.Views
 {
-    /// <summary>
-    /// Interaction logic for ForecastView.xaml
-    /// </summary>
     public partial class ForecastView : Window
     {
         public ForecastView()
@@ -25,6 +11,40 @@ namespace WeatherApp.Views
             InitializeComponent();
             this.DataContext = new ForecastViewModel();
 
+        }
+
+        private async void Go_home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+
+            if (window == null)
+            {
+                MessageBox.Show("Window not found.");
+                return;
+            }
+
+            // Збереження стану вікна
+            WindowStateManager.Width = window.Width;
+            WindowStateManager.Height = window.Height;
+            WindowStateManager.Top = window.Top;
+            WindowStateManager.Left = window.Left;
+            WindowStateManager.IsMaximized = window.WindowState == WindowState.Maximized;
+
+            MainWindow mainWin = new MainWindow
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
+
+            mainWin.Show();
+
+            // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
+            await Task.Delay(100);
+
+            window.Close();
         }
     }
 }

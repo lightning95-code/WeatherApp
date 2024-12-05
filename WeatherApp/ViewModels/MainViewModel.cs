@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using System.Windows;
@@ -29,7 +28,8 @@ namespace WeatherApp.ViewModels
         public MainViewModel()
         {
             _weatherService = new WeatherService();
-            CityName = "London";
+            // Initialize the city name from the AppState
+            CityName = AppState.Instance.SelectedCity;
             LoadWeatherDataAsync();
         }
 
@@ -39,7 +39,6 @@ namespace WeatherApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
         public string CityImageUrl
         {
@@ -195,7 +194,6 @@ namespace WeatherApp.ViewModels
             }
         }
 
-
         public string WeatherIcon
         {
             get => _weatherIcon;
@@ -209,7 +207,6 @@ namespace WeatherApp.ViewModels
             }
         }
 
-        
         public async Task LoadCityImageAsync(string cityName)
         {
             var pixabayService = new PixabayService();
@@ -219,8 +216,7 @@ namespace WeatherApp.ViewModels
             }
             catch (Exception ex)
             {
-                
-                CityImageUrl = "FallbackImagePath.png"; 
+                CityImageUrl = "FallbackImagePath.png"; // Fallback image in case of error
                 Console.WriteLine($"Error loading image: {ex.Message}");
             }
         }
@@ -256,9 +252,9 @@ namespace WeatherApp.ViewModels
                     if (_currentWeather.TempMaxCelsius != -273.15 && _currentWeather.TempMaxCelsius != 0)
                         MaxTemperature = $"Maximum temperature: {_currentWeather.TempMaxCelsius:F1} °C";
                     else
-                        MaxTemperature = $"Maximum temperature: { 4 + _currentWeather.TempCelsius:F1} °C";;
+                        MaxTemperature = $"Maximum temperature: {4 + _currentWeather.TempCelsius:F1} °C";
 
-                    if (_currentWeather.TempMinCelsius != -273.15 && _currentWeather.TempMinCelsius!=0)
+                    if (_currentWeather.TempMinCelsius != -273.15 && _currentWeather.TempMinCelsius != 0)
                         MinTemperature = $"Minimum temperature: {_currentWeather.TempMinCelsius:F1} °C";
                     else
                         MinTemperature = $"Minimum temperature: {-4 + _currentWeather.TempCelsius:F1} °C";
@@ -285,13 +281,11 @@ namespace WeatherApp.ViewModels
 
                     if (_currentWeather.Weather.Count > 0 && !string.IsNullOrEmpty(_currentWeather.Weather[0].Description))
                     {
-                      
                         WeatherIcon = $"http://openweathermap.org/img/w/{_currentWeather.Weather[0].Icon}.png"; // URL 
                     }
                     else
                     {
-                      
-                        WeatherIcon = null; 
+                        WeatherIcon = null;
                     }
                 }
             }
@@ -301,4 +295,5 @@ namespace WeatherApp.ViewModels
             }
         }
     }
+
 }
