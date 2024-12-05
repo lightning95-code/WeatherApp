@@ -5,7 +5,7 @@
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:WeatherApp"
-             StartupUri="Views/MainWindow.xaml">
+             StartupUri="Views/ForecastView.xaml">
 
     <Application.Resources>
         <ResourceDictionary>

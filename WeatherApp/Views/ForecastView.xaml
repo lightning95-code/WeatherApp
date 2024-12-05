@@ -1,0 +1,165 @@
+﻿<Window x:Class="WeatherApp.Views.ForecastView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherApp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:controls="clr-namespace:WeatherApp.Controls"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="/Images/Weather.png"
+        Title="Forecast page" Height="720" Width="1080">
+    <Grid>
+        <controls:WindowControl x:Name="WindowControl" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <controls:LeftMenuControl Grid.Column="0" />
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="30 20 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <controls:TopContentControl x:Name="TopContentControl" Grid.Row="0"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" IsHitTestVisible="False">
+                    <!-- Binding to CityName -->
+                    <TextBlock Text="{Binding CityName, UpdateSourceTrigger=PropertyChanged}" x:Name="CityTextBlock" FontSize="50" FontWeight="Bold" Margin="55,40,0,0"
+                               HorizontalAlignment="Left" Foreground="#121518"/>
+                    <TextBlock Grid.Row="1" Text="—" FontSize="30" FontWeight="SemiBold" Margin="15,60,0,0"
+                               HorizontalAlignment="Left" Foreground="#121518"/>
+                    <TextBlock Grid.Row="1" Text="detailed forecast" FontSize="30" FontWeight="SemiBold" Margin="15,60,0,0"
+                               HorizontalAlignment="Left" Foreground="#121518"/>
+                    <TextBlock Grid.Row="1" Text="{Binding CurrentForecast.Date}" x:Name="DateTextBlock" FontSize="20" FontWeight="SemiBold" Margin="15,70,0,0"
+                               HorizontalAlignment="Left" Foreground="#121518"/>
+                    <Image Name="WeatherIcon" Width="50" Height="50" Margin="10,58,0,0" Source="{Binding WeatherIcon}" />
+                </StackPanel>
+
+                <Separator Height="8" Grid.Row="2" Background="Black" Margin="0,14,0,10" Width="600" HorizontalAlignment="Left" IsHitTestVisible="False"/>
+
+                <Border Grid.Row="3" Background="#86b2fc" CornerRadius="22">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto" MinWidth="250"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Chart Container -->
+                        <Grid x:Name="ChartContainer" Grid.Column="0">
+                            <Grid.Resources>
+                                <Style TargetType="lvc:LineSeries">
+                                    <Setter Property="StrokeThickness" Value="5"/>
+                                    <Setter Property="Stroke" Value="#323ca8"/>
+                                    <Setter Property="Fill" Value="#b5b9ff"/>
+                                    <Setter Property="PointGeometrySize" Value="16"/>
+                                    <Setter Property="PointForeground" Value="#e6e7fa"/>
+                                    <Setter Property="LineSmoothness" Value="1"/>
+                                </Style>
+                                <Style TargetType="lvc:Axis">
+                                    <Setter Property="ShowLabels" Value="True"/>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Style>
+                                <Style TargetType="lvc:Separator">
+                                    <Setter Property="StrokeThickness" Value="0.1"/>
+                                    <Setter Property="Stroke" Value="#5e5b85"/>
+                                </Style>
+                            </Grid.Resources>
+
+                            <Border Background="#d9effc" Margin="10, 10, 10, 10" CornerRadius="22">
+                                <lvc:CartesianChart Series="{Binding SeriesCollection}" Margin="7 0 -15 0">
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Labels="{Binding XAxis.Labels}"/>
+                                    </lvc:CartesianChart.AxisX>
+
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis LabelFormatter="{Binding YAxis.LabelFormatter}" />
+                                    </lvc:CartesianChart.AxisY>
+                                </lvc:CartesianChart>
+                            </Border>
+                        </Grid>
+
+                        <!-- Detail Container -->
+                        <Grid x:Name="DetailContainer" Grid.Column="1">
+                            <Border Background="#b4cefa" Margin="5, 10, 10, 10" CornerRadius="22">
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" MinWidth="110" MaxWidth="160"/>
+                                        <ColumnDefinition Width="auto" MinWidth="110" MaxWidth="160"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="Weather conditions:" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+                                    <TextBlock Text="Description:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                                    <!-- Bind to CurrentForecast.Description -->
+                                    <TextBlock Text="{Binding CurrentForecast.Weather[0].Description}" FontSize="12" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="2"/>
+
+                                    <TextBlock Text="Temperature:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                                    <!-- Bind to CurrentForecast.TempCelsius -->
+                                    <TextBlock Text="{Binding CurrentForecast.TempCelsius, StringFormat={}{0:F1} °C}" FontSize="12" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="3"/>
+
+                                    <TextBlock Text="Humidity:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+                                    <TextBlock Text="{Binding Humidity, StringFormat={}{0}%}" FontSize="12" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="4"/>
+
+                                    <TextBlock Text="Wind Speed:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+                                    <TextBlock Text="{Binding WindSpeed, StringFormat={}{0:F1} m/s}" FontSize="12" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="5"/>
+
+                                    <TextBlock Text="Pressure:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0"/>
+                                    <TextBlock Text="{Binding Pressure, StringFormat={}{0} hPa}" FontSize="12" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    <Separator Margin="0 10 0 0" Height="4" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Row="6"/>
+
+                                    <TextBlock Text="Cloudiness:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0"/>
+                                    <TextBlock Text="{Binding Cloudness, StringFormat={}{0}%}" FontSize="12" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right"/>
+                                   
+
+                                    <Button Grid.Row="8" Grid.ColumnSpan="2" Height="50" Background="#2c6c99" BorderBrush="#1d4866">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Icon:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}" Margin="-3 3 10 0"/>
+                                            <TextBlock x:Name="HomeBlock" Text="Home" Margin="0 3 0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

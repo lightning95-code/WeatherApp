@@ -48,14 +48,14 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="HomeButtonClick">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock x:Name="MainTb" Text="Home"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="ForecastPage_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="WeatherCloudy" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock x:Name="MarketsButTb" Text="Weather forecast"/>
