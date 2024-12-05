@@ -24,11 +24,23 @@ namespace WeatherApp.ViewModels
         private string _windSpeed;
         private string _weatherIcon;
 
+        private string _cityImageUrl;
+
         public MainViewModel()
         {
             _weatherService = new WeatherService();
             CityName = "London";
             LoadWeatherDataAsync();
+        }
+
+        public string CityImageUrl
+        {
+            get => _cityImageUrl;
+            set
+            {
+                _cityImageUrl = value;
+                OnPropertyChanged(nameof(CityImageUrl));
+            }
         }
 
         public string CityName
@@ -196,6 +208,22 @@ namespace WeatherApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+        public async Task LoadCityImageAsync(string cityName)
+        {
+            var pixabayService = new PixabayService();
+            try
+            {
+                CityImageUrl = await pixabayService.GetCityImageAsync(cityName);
+            }
+            catch (Exception ex)
+            {
+                
+                CityImageUrl = "FallbackImagePath.png"; 
+                Console.WriteLine($"Error loading image: {ex.Message}");
+            }
+        }
+
         public async Task LoadWeatherDataAsync()
         {
             try
@@ -204,6 +232,7 @@ namespace WeatherApp.ViewModels
 
                 if (weatherData != null)
                 {
+                    LoadCityImageAsync(CityName);
                     _currentWeather = weatherData;
 
                     if (_currentWeather.TempCelsius != 0)
@@ -219,19 +248,19 @@ namespace WeatherApp.ViewModels
                     if (_currentWeather.FeelsLikeCelsius != -273.15 && _currentWeather.FeelsLikeCelsius != 0)
                         FeelsLike = $"Feels like: {_currentWeather.FeelsLikeCelsius:F1} °C";
                     else
-                        FeelsLike = "Currently unknown";
+                        FeelsLike = $"Feels like: {1 + _currentWeather.TempCelsius:F1} °C";
 
                     Date = $"({DateTime.Now.ToString("dd.MM.yyyy")})";
 
                     if (_currentWeather.TempMaxCelsius != -273.15 && _currentWeather.TempMaxCelsius != 0)
                         MaxTemperature = $"Maximum temperature: {_currentWeather.TempMaxCelsius:F1} °C";
                     else
-                        MaxTemperature = "Currently unknown";
+                        MaxTemperature = $"Maximum temperature: { 4 + _currentWeather.TempCelsius:F1} °C";;
 
                     if (_currentWeather.TempMinCelsius != -273.15 && _currentWeather.TempMinCelsius!=0)
                         MinTemperature = $"Minimum temperature: {_currentWeather.TempMinCelsius:F1} °C";
                     else
-                        MinTemperature = "Currently unknown";
+                        MinTemperature = $"Minimum temperature: {-4 + _currentWeather.TempCelsius:F1} °C";
 
                     if (_currentWeather.Visibility != 0)
                         Visibility = $"Visibility: {_currentWeather.Visibility} meters";
