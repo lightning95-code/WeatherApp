@@ -150,7 +150,7 @@
                                             Height="{Binding ElementName=CityImageBorder, Path=ActualHeight}" 
                                             Width="{Binding ElementName=CityImageBorder, Path=ActualWidth}" 
                                             Background="White" 
-                                            CornerRadius="20" />    
+                                            CornerRadius="20" />
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </Border.OpacityMask>
@@ -159,7 +159,7 @@
                             <Image x:Name="CityImage" Source="{Binding CityImageUrl}" Stretch="UniformToFill" />
                         </Border>
 
-
+                        
                     </Grid>
                 </Border>
             </Grid>

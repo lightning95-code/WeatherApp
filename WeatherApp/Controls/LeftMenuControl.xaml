@@ -41,7 +41,7 @@
                 <Separator Grid.Row="1" Margin="25, 25, 25, 10"  Height="9" Background="White"/>
 
                 <StackPanel Grid.Row="2" Margin="10,10,10,0">
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Command="{Binding RefreshCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Refresh page"/>
@@ -84,7 +84,7 @@
                     </Button>
                 </StackPanel>
 
-                <Button Style="{StaticResource menuButton}" Grid.Row="3" Margin="20,10,15,30" VerticalAlignment="Bottom">
+                <Button Style="{StaticResource menuButton}" Grid.Row="3" Margin="20,10,15,30" VerticalAlignment="Bottom" Click="Exit_Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock x:Name="ExitTb" Text="Exit"/>

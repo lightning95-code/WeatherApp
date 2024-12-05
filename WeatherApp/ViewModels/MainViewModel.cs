@@ -33,6 +33,14 @@ namespace WeatherApp.ViewModels
             LoadWeatherDataAsync();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         public string CityImageUrl
         {
             get => _cityImageUrl;
@@ -201,14 +209,7 @@ namespace WeatherApp.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
+        
         public async Task LoadCityImageAsync(string cityName)
         {
             var pixabayService = new PixabayService();
