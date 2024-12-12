@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WeatherApp.Models;
-using System.Windows; 
 
 namespace WeatherApp.Services
 {
